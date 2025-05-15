@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  - name: dim_roster
+    description: "Dimension table containing player roster information"
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player"
+        tests:
+          - unique
+          - not_null
+      - name: full_name
+        description: "Player's full name"
+        tests:
+          - not_null
+      - name: position
+        description: "Player's primary position"
+        tests:
+          - not_null
+      - name: age
+        description: "Player's age"
+      - name: is_pitcher
+        description: "Whether the player is a pitcher"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: fct_player_salaries
+    description: "Fact table containing player salary information"
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_roster')
+              field: player_id
+      - name: year
+        description: "Year of the salary"
+        tests:
+          - not_null
+      - name: salary
+        description: "Player's salary in dollars"
+        tests:
+          - not_null
+      - name: salary_millions
+        description: "Player's salary in millions of dollars"
+        tests:
+          - not_null
+      - name: is_pitcher
+        description: "Whether the player is a pitcher"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: pitcher_salary_analysis
+    description: "Analysis of pitcher salaries and performance"
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_roster')
+              field: player_id
+      - name: year
+        description: "Year of the analysis"
+        tests:
+          - not_null
+      - name: salary
+        description: "Player's salary in dollars"
+        tests:
+          - not_null
+      - name: total_pitchers
+        description: "Total number of pitchers in the year"
+      - name: team_avg_salary_millions
+        description: "Average salary in millions for pitchers in the year"
+
+  - name: player_performance_analysis
+    description: "Analysis of player performance metrics"
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_roster')
+              field: player_id
+      - name: year
+        description: "Year of the analysis"
+        tests:
+          - not_null
+      - name: season_batting_average
+        description: "Player's season batting average"
+      - name: season_era
+        description: "Pitcher's season earned run average"
+      - name: cost_per_hit
+        description: "Cost per hit for batters"
+      - name: cost_per_home_run
+        description: "Cost per home run for batters"
+      - name: cost_per_win
+        description: "Cost per win for pitchers"

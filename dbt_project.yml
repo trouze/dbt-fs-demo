@@ -1,0 +1,71 @@
+name: 'dbt_dugout'
+version: '1.0.0'
+config-version: 2
+
+profile: 'garage-snowflake'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  dbt_dugout:
+    # Staging models
+    staging:
+      +materialized: view
+      stg_players:
+        +description: "Staged player data with basic transformations"
+      stg_salaries:
+        +description: "Staged salary data with basic transformations"
+      stg_teams:
+        +description: "Staged team data with basic transformations"
+      stg_game_stats:
+        +description: "Staged game statistics with derived metrics"
+
+    # Intermediate models
+    intermediate:
+      +materialized: view
+      int_pitcher_performance_trends:
+        +description: "Intermediate model for pitcher performance analysis"
+      int_player_value_analysis:
+        +description: "Intermediate model for player value analysis"
+
+    # Mart models
+    marts:
+      +materialized: table
+      dim_roster:
+        +description: "Dimension table for player roster information"
+      fct_player_salaries:
+        +description: "Fact table for player salary information"
+      pitcher_salary_analysis:
+        +description: "Analysis of pitcher salaries and performance"
+      player_performance_analysis:
+        +description: "Analysis of player performance metrics"
+
+seeds:
+  dbt_dugout:
+    raw_players:
+      +description: "Raw player data"
+    raw_salaries:
+      +description: "Raw salary data"
+    raw_teams:
+      +description: "Raw team data"
+    raw_game_stats:
+      +description: "Raw game statistics"
+
+vars:
+  # Add any project variables here
+  start_date: '2019-01-01'
+  end_date: '2023-12-31'
+
+tests:
+  +severity: warn
+  +store_failures: true
