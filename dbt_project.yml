@@ -2,7 +2,7 @@ name: 'dbt_dugout'
 version: '1.0.0'
 config-version: 2
 
-profile: 'garage-snowflake'
+profile: 'sa_snowflake'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -20,6 +20,7 @@ models:
   dbt_dugout:
     # Staging models
     staging:
+      +schema: staging
       +materialized: view
       stg_players:
         +description: "Staged player data with basic transformations"
@@ -32,6 +33,7 @@ models:
 
     # Intermediate models
     intermediate:
+      +schema: intermediate
       +materialized: view
       int_pitcher_performance_trends:
         +description: "Intermediate model for pitcher performance analysis"
@@ -40,6 +42,7 @@ models:
 
     # Mart models
     marts:
+      +schema: mart
       +materialized: table
       dim_roster:
         +description: "Dimension table for player roster information"
@@ -52,6 +55,7 @@ models:
 
 seeds:
   dbt_dugout:
+    +enabled: false
     raw_players:
       +description: "Raw player data"
     raw_salaries:

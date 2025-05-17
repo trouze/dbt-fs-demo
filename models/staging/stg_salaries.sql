@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ ref('raw_salaries') }}
+    select * from {{ source('dugout', 'raw_salaries') }}
 ),
 
 renamed as (

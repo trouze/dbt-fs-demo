@@ -1,5 +1,15 @@
 version: 2
 
+sources:
+  - name: dugout
+    database: raw
+    schema: trouze
+    tables:
+      - name: raw_game_stats
+      - name: raw_players
+      - name: raw_salaries
+      - name: raw_teams
+
 models:
   - name: stg_players
     description: "Staged player data with basic transformations and derived fields"

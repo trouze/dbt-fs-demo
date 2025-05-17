@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ ref('raw_game_stats') }}
+    select * from {{ source('dugout', 'raw_game_stats') }}
 ),
 
 renamed as (
