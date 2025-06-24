@@ -20,7 +20,7 @@ models:
   dbt_dugout:
     +freshness:
       build_after: 
-        count: 10
+        count: 1
         period: minute
         updates_on: any
     # Staging models
