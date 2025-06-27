@@ -22,7 +22,7 @@ models:
       build_after: 
         count: 1
         period: minute
-        updates_on: any
+      updates_on: any
     # Staging models
     staging:
       +schema: staging
