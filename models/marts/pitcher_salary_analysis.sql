@@ -1,3 +1,4 @@
+-- depends_on: {{ ref('int_player_value_analysis') }}
 with salary_data as (
     select * from {{ ref('fct_player_salaries') }}
     where is_pitcher = true
