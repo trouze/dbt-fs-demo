@@ -18,11 +18,6 @@ clean-targets:
 
 models:
   dbt_dugout:
-    +freshness:
-      build_after: 
-        count: 1
-        period: minute
-      updates_on: any
     # Staging models
     staging:
       +schema: staging
