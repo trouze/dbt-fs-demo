@@ -1,4 +1,4 @@
-twith players as (
+with players as (
     select * from {{ ref('stg_players') }}
 ),
 
