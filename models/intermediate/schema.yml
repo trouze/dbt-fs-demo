@@ -9,8 +9,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_players')
-              field: player_id
+              arguments:
+                to: ref('stg_players')
+                field: player_id
       - name: game_date
         description: "Date of the game"
         tests:
@@ -25,7 +26,8 @@ models:
         description: "Whether the game was a quality start (6+ innings, 3 or fewer earned runs)"
         tests:
           - accepted_values:
-              values: [0, 1]
+              arguments:
+                values: [0, 1]
       - name: game_score
         description: "Bill James game score metric"
       - name: season_era
@@ -39,8 +41,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_players')
-              field: player_id
+              arguments:
+                to: ref('stg_players')
+                field: player_id
       - name: year
         description: "Year of the analysis"
         tests:
