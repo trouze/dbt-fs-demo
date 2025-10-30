@@ -28,13 +28,15 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['Pitcher', 'Catcher', 'First Base', 'Second Base', 'Third Base', 'Shortstop', 'Left Field', 'Center Field', 'Right Field']
+              arguments:
+                values: ['Pitcher', 'Catcher', 'First Base', 'Second Base', 'Third Base', 'Shortstop', 'Left Field', 'Center Field', 'Right Field']
       - name: position_abbreviation
         description: "Abbreviated position code"
         tests:
           - not_null
           - accepted_values:
-              values: ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF']
+              arguments:
+                values: ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF']
 
   - name: stg_salaries
     description: "Staged salary data with basic transformations"
@@ -44,8 +46,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_players')
-              field: player_id
+              arguments:
+                to: ref('stg_players')
+                field: player_id
       - name: year
         description: "Year of the salary"
         tests:
@@ -76,7 +79,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['National', 'American']
+              arguments:
+                values: ['National', 'American']
       - name: division
         description: "Division the team belongs to"
         tests:
@@ -94,8 +98,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_players')
-              field: player_id
+              arguments:
+                to: ref('stg_players')
+                field: player_id
       - name: game_date
         description: "Date of the game"
         tests:
