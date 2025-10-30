@@ -1,4 +1,4 @@
-with players as (
+twith players as (
     select * from {{ ref('stg_players') }}
 ),
 
@@ -22,6 +22,7 @@ final as (
         t.state as team_state,
         t.league,
         t.division,
+        'test' as test_col,
         -- Add some derived fields
         date_part('year', current_date()) - date_part('year', p.birth_date) as age,
         case 
