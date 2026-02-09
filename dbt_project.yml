@@ -54,14 +54,6 @@ models:
 seeds:
   dbt_dugout:
     +enabled: false
-    raw_players:
-      +description: "Raw player data"
-    raw_salaries:
-      +description: "Raw salary data"
-    raw_teams:
-      +description: "Raw team data"
-    raw_game_stats:
-      +description: "Raw game statistics"
 
 vars:
   # Add any project variables here

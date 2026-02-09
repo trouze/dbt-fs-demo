@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_trouze__game_stats
+    description: "Staging model for raw game stats."
+    columns:
+      - name: game_id
+        description: "Unique identifier for each game stats record."
+      - name: player_id
+        description: "Foreign key to the player."
+      - name: game_date
+        description: "Date of the game."
+      - name: at_bats
+        description: "Number of at bats in the game."
+      - name: hits
+        description: "Number of hits in the game."
+      - name: home_runs
+        description: "Number of home runs in the game."
+      - name: rbi
+        description: "Number of RBIs in the game."
+      - name: stolen_bases
+        description: "Number of stolen bases in the game."
+      - name: walks
+        description: "Number of walks in the game."
+      - name: strikeouts
+        description: "Number of strikeouts in the game."
+      - name: season_year
+        description: "Derived season year from game_date."

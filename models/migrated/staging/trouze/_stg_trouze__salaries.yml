@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_trouze__salaries
+    description: "Staging model for raw player salaries."
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player."
+      - name: team_id
+        description: "Foreign key to the team."
+      - name: season_year
+        description: "Season year for the salary record."
+      - name: salary
+        description: "Salary amount for the player in the given season."
