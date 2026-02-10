@@ -33,6 +33,62 @@ models:
       - name: season_era
         description: "Season-to-date earned run average"
 
+  - name: int_pitcher_season_stats
+    description: "Season-level pitcher aggregation with derived performance metrics and role classification. One row per pitcher per season."
+    columns:
+      - name: player_id
+        description: "Unique identifier for each player"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_players')
+                field: player_id
+      - name: season_year
+        description: "Year of the baseball season"
+        tests:
+          - not_null
+      - name: games_pitched
+        description: "Number of distinct games in which the pitcher appeared"
+      - name: total_innings_pitched
+        description: "Sum of innings pitched across all games in the season"
+      - name: total_hits_allowed
+        description: "Total hits allowed during the season"
+      - name: total_earned_runs
+        description: "Total earned runs allowed during the season"
+      - name: total_walks
+        description: "Total walks issued during the season"
+      - name: total_strikeouts
+        description: "Total strikeouts recorded during the season"
+      - name: total_wins
+        description: "Total wins credited to the pitcher"
+      - name: total_losses
+        description: "Total losses charged to the pitcher"
+      - name: total_saves
+        description: "Total saves recorded by the pitcher"
+      - name: quality_starts
+        description: "Number of quality starts (6+ IP, 3 or fewer ER)"
+      - name: era
+        description: "Earned Run Average: (earned_runs / innings_pitched) * 9"
+      - name: whip
+        description: "Walks plus Hits per Inning Pitched"
+      - name: k_per_9
+        description: "Strikeouts per 9 innings"
+      - name: bb_per_9
+        description: "Walks per 9 innings"
+      - name: k_bb_ratio
+        description: "Strikeout-to-walk ratio"
+      - name: h_per_9
+        description: "Hits allowed per 9 innings"
+      - name: win_pct
+        description: "Win percentage: wins / (wins + losses)"
+      - name: pitcher_role
+        description: "Classified role: Starter (100+ IP), Closer (10+ saves), Setup (40+ games), or Relief"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Starter', 'Closer', 'Setup', 'Relief']
+
   - name: int_player_value_analysis
     description: "Intermediate model analyzing player value and performance metrics"
     columns:

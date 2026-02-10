@@ -35,6 +35,8 @@ models:
       +materialized: view
       int_pitcher_performance_trends:
         +description: "Intermediate model for pitcher performance analysis"
+      int_pitcher_season_stats:
+        +description: "Season-level pitcher aggregation with derived performance metrics and role classification"
       int_player_value_analysis:
         +description: "Intermediate model for player value analysis"
 
@@ -48,6 +50,8 @@ models:
         +description: "Fact table for player salary information"
       pitcher_salary_analysis:
         +description: "Analysis of pitcher salaries and performance"
+      fct_pitcher_season_summary:
+        +description: "Season-level pitcher performance summary with salary efficiency metrics"
       player_performance_analysis:
         +description: "Analysis of player performance metrics"
 

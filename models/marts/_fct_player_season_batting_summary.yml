@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: fct_player_season_batting_summary
+    description: "Summary of player batting performance and salary efficiency per season. This model is incremental and typically processed one season at a time."
+    columns:
+      - name: player_id
+        description: "Unique identifier for the player."
+      - name: first_name
+        description: "First name of the player."
+      - name: last_name
+        description: "Last name of the player."
+      - name: position
+        description: "Primary position played by the player."
+      - name: team_id
+        description: "Unique identifier for the team."
+      - name: team_name
+        description: "Name of the team the player played for in that season."
+      - name: league
+        description: "League the team belongs to."
+      - name: division
+        description: "Division the team belongs to."
+      - name: season_year
+        description: "The year of the baseball season."
+      - name: games_played
+        description: "Number of games played by the player in the season."
+      - name: total_at_bats
+        description: "Total at-bats in the season."
+      - name: total_hits
+        description: "Total hits in the season."
+      - name: total_home_runs
+        description: "Total home runs hit in the season."
+      - name: total_rbi
+        description: "Total runs batted in (RBI) in the season."
+      - name: total_stolen_bases
+        description: "Total stolen bases in the season."
+      - name: total_walks
+        description: "Total walks received in the season."
+      - name: total_strikeouts
+        description: "Total strikeouts in the season."
+      - name: batting_avg
+        description: "Calculated batting average (hits / at_bats)."
+      - name: on_base_pct
+        description: "Calculated on-base percentage ((hits + walks) / (at_bats + walks))."
+      - name: salary
+        description: "Player salary for the season, defaults to 0 if unknown."
+      - name: cost_per_hit
+        description: "Efficiency metric: salary divided by total hits."

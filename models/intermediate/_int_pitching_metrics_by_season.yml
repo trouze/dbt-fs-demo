@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: int_pitching_metrics_by_season
+    description: "Aggregated season-level pitching statistics and derived performance metrics for players who recorded innings pitched."
+    columns:
+      - name: player_id
+        description: "Unique identifier for the player."
+      - name: season_year
+        description: "The baseball season year."
+      - name: games_pitched
+        description: "Total number of games the player pitched in."
+      - name: total_innings_pitched
+        description: "Total innings pitched during the season."
+      - name: total_hits_allowed
+        description: "Total hits allowed."
+      - name: total_earned_runs
+        description: "Total earned runs allowed."
+      - name: total_walks
+        description: "Total walks allowed."
+      - name: total_strikeouts
+        description: "Total strikeouts."
+      - name: total_wins
+        description: "Total wins recorded."
+      - name: total_losses
+        description: "Total losses recorded."
+      - name: total_saves
+        description: "Total saves recorded."
+      - name: quality_starts
+        description: "Total quality starts (>= 6 IP, <= 3 ER)."
+      - name: era
+        description: "Earned Run Average."
+      - name: whip
+        description: "Walks and Hits per Inning Pitched."
+      - name: k_per_9
+        description: "Strikeouts per 9 innings."
+      - name: bb_per_9
+        description: "Walks per 9 innings."
+      - name: k_bb_ratio
+        description: "Strikeout-to-walk ratio."
+      - name: h_per_9
+        description: "Hits per 9 innings."
+      - name: win_pct
+        description: "Percentage of decisions that were wins."
+      - name: pitcher_role
+        description: "Classification of the pitcher's role (Starter, Closer, Setup, Relief)."

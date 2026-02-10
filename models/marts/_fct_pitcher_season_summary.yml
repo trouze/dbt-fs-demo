@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: fct_pitcher_season_summary
+    description: "Season-level pitcher performance summary with salary efficiency metrics. Grain: one row per pitcher per season. Migrated from legacy stored procedure sp_pitcher_season_summary."
+    columns:
+      - name: player_id
+        description: "Unique identifier for the player."
+        tests:
+          - not_null
+      - name: first_name
+        description: "First name of the player."
+      - name: last_name
+        description: "Last name of the player."
+      - name: full_name
+        description: "Player's full name (first_name + last_name)."
+      - name: position
+        description: "Primary position played by the player."
+      - name: pitcher_role
+        description: "Classified pitching role: Starter, Closer, Setup, or Relief."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Starter', 'Closer', 'Setup', 'Relief']
+      - name: team_id
+        description: "Unique identifier for the team."
+      - name: team_name
+        description: "Name of the team the player played for in that season."
+      - name: league
+        description: "League the team belongs to (National or American)."
+      - name: division
+        description: "Division the team belongs to."
+      - name: season_year
+        description: "The year of the baseball season."
+        tests:
+          - not_null
+      - name: games_pitched
+        description: "Number of games pitched in the season."
+      - name: total_innings_pitched
+        description: "Total innings pitched in the season."
+      - name: total_hits_allowed
+        description: "Total hits allowed in the season."
+      - name: total_earned_runs
+        description: "Total earned runs allowed in the season."
+      - name: total_walks
+        description: "Total walks issued in the season."
+      - name: total_strikeouts
+        description: "Total strikeouts recorded in the season."
+      - name: total_wins
+        description: "Total wins in the season."
+      - name: total_losses
+        description: "Total losses in the season."
+      - name: total_saves
+        description: "Total saves in the season."
+      - name: quality_starts
+        description: "Number of quality starts (6+ IP, 3 or fewer ER)."
+      - name: era
+        description: "Earned Run Average: (earned_runs / innings_pitched) * 9."
+      - name: whip
+        description: "Walks plus Hits per Inning Pitched."
+      - name: k_per_9
+        description: "Strikeouts per 9 innings."
+      - name: bb_per_9
+        description: "Walks per 9 innings."
+      - name: k_bb_ratio
+        description: "Strikeout-to-walk ratio."
+      - name: h_per_9
+        description: "Hits allowed per 9 innings."
+      - name: win_pct
+        description: "Win percentage: wins / (wins + losses)."
+      - name: salary
+        description: "Player salary for the season, defaults to 0 if unknown."
+      - name: cost_per_strikeout
+        description: "Efficiency metric: salary divided by total strikeouts."
+      - name: cost_per_win
+        description: "Efficiency metric: salary divided by total wins."
+      - name: cost_per_inning
+        description: "Efficiency metric: salary divided by total innings pitched."
