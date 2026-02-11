@@ -2,6 +2,9 @@ version: 2
 
 models:
   - name: dim_roster
+    config:
+      group: mart
+      access: public
     description: "Dimension table containing player roster information"
     columns:
       - name: player_id
@@ -27,6 +30,9 @@ models:
                 values: [true, false]
 
   - name: fct_player_salaries
+    config:
+      group: mart
+      access: public
     description: "Fact table containing player salary information"
     columns:
       - name: player_id
@@ -57,6 +63,9 @@ models:
                 values: [true, false]
 
   - name: pitcher_salary_analysis
+    config:
+      group: mart
+      access: public
     description: "Analysis of pitcher salaries and performance"
     columns:
       - name: player_id
@@ -81,6 +90,9 @@ models:
         description: "Average salary in millions for pitchers in the year"
 
   - name: player_performance_analysis
+    config:
+      group: mart
+      access: public
     description: "Analysis of player performance metrics"
     columns:
       - name: player_id
@@ -105,3 +117,9 @@ models:
         description: "Cost per home run for batters"
       - name: cost_per_win
         description: "Cost per win for pitchers"
+
+groups:
+  - name: mart
+    owner:
+      name: dbt ProServ Team
+      email: tyler.rouze@dbtlabs.com
