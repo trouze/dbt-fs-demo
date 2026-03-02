@@ -25,6 +25,7 @@ renamed as (
         strikeouts_pitched,
         win,
         loss,
+        'comment' as test_comment,
         save,
         -- Derived metrics
         case 
