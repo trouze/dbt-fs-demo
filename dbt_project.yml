@@ -40,9 +40,6 @@ models:
 
     # Mart models
     marts:
-      +config:
-        group: mart
-        access: public
       +schema: mart
       +materialized: table
       dim_roster:
