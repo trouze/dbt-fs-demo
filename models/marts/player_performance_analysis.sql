@@ -85,11 +85,13 @@ final as (
             then (s.salary::float / pss.total_home_runs)::int
             else null
         end as cost_per_home_run,
-        case 
-            when s.salary > 0 and pss.total_wins > 0 
+        case
+            when s.salary > 0 and pss.total_wins > 0
             then (s.salary::float / pss.total_wins)::int
             else null
-        end as cost_per_win
+        end as cost_per_win,
+        -- Date column required for MetricFlow time dimension
+        date_from_parts(pss.year::int, 1, 1) as season_date
     from player_season_stats pss
     left join players p
         on pss.player_id = p.player_id
