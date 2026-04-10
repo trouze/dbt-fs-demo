@@ -6,6 +6,8 @@ models:
   # Required by MetricFlow for cumulative metrics and time-based joins.
   # -----------------------------------------------------------------------
   - name: time_spine_yearly
+    config:
+      freshness: null
     description: "Time spine with one row per year, used by MetricFlow for time-based aggregations."
     time_spine:
       standard_granularity_column: date_year
@@ -23,6 +25,11 @@ models:
     config:
       group: mart
       access: public
+      freshness:
+        build_after:
+          count: 12
+          period: hour
+          updates_on: all
     description: "Dimension table containing player roster information"
     semantic_model:
       enabled: true

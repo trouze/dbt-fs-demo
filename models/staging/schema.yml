@@ -4,6 +4,10 @@ sources:
   - name: dugout
     database: raw
     schema: trouze
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}
     tables:
       - name: raw_game_stats
       - name: raw_players

@@ -1,8 +1,0 @@
-# This file has been superseded.
-#
-# Semantic model configuration now lives in schema.yml using the latest spec
-# (dbt Fusion / Core 1.12+), where `semantic_model:`, `entity:`, `dimension:`,
-# and `metrics:` blocks are nested directly under each model definition.
-#
-# Cross-model metrics (ratio, cumulative) are in metrics.yml.
-# Saved queries are in saved_queries.yml.
