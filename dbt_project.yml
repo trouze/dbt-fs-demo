@@ -1,4 +1,4 @@
-name: 'dbt_dugout'
+name: 'dbt_dugout_downstream'
 version: '1.0.0'
 config-version: 2
 
@@ -23,22 +23,7 @@ models:
       period: hour
       updates_on: all
   dbt_dugout:
-    # Staging models
-    staging:
-      +schema: staging
-      +materialized: view
-
-    # Intermediate models
-    intermediate:
-      +schema: intermediate
-      +materialized: view
-    # Mart models
-    marts:
-      +config:
-        +group: mart
-        +access: public
-      +schema: mart
-      +materialized: table
+    +schema: downstream
 
 seeds:
   dbt_dugout:
