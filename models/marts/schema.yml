@@ -2,19 +2,20 @@ version: 2
 
 models:
   # -----------------------------------------------------------------------
-  # time_spine_yearly
+  # time_spine_daily
   # Required by MetricFlow for cumulative metrics and time-based joins.
   # -----------------------------------------------------------------------
   - name: time_spine_yearly
     config:
       freshness: null
-    description: "Time spine with one row per year, used by MetricFlow for time-based aggregations."
+      alias: time_spine_daily
+    description: "Time spine with one row per day, used by MetricFlow for time-based aggregations."
     time_spine:
-      standard_granularity_column: date_year
+      standard_granularity_column: date_day
     columns:
-      - name: date_year
-        description: "The base date column for yearly granularity (Jan 1 of each year)"
-        granularity: year
+      - name: date_day
+        description: "The base date column for daily granularity"
+        granularity: day
 
   # -----------------------------------------------------------------------
   # dim_roster
@@ -36,7 +37,7 @@ models:
     columns:
       - name: player_id
         description: "Unique identifier for each player"
-        tests:
+        data_tests:
           - unique
           - not_null
         entity:
@@ -44,13 +45,13 @@ models:
           name: player
       - name: full_name
         description: "Player's full name"
-        tests:
+        data_tests:
           - not_null
         dimension:
           type: categorical
       - name: position
         description: "Player's primary position"
-        tests:
+        data_tests:
           - not_null
         dimension:
           type: categorical
@@ -72,7 +73,7 @@ models:
           type: categorical
       - name: is_pitcher
         description: "True if the player is a pitcher"
-        tests:
+        data_tests:
           - accepted_values:
               arguments:
                 values: [true, false]
@@ -112,7 +113,7 @@ models:
     columns:
       - name: player_id
         description: "Unique identifier for each player"
-        tests:
+        data_tests:
           - not_null
           - relationships:
               arguments:
@@ -128,17 +129,17 @@ models:
           type: time
       - name: year
         description: "Season year (integer)"
-        tests:
+        data_tests:
           - not_null
       - name: full_name
         description: "Player's full name"
       - name: salary
         description: "Player's salary in dollars"
-        tests:
+        data_tests:
           - not_null
       - name: salary_millions
         description: "Player's salary in millions of dollars"
-        tests:
+        data_tests:
           - not_null
       - name: team_name
         description: "Team name for this contract year"
@@ -158,7 +159,7 @@ models:
           type: categorical
       - name: is_pitcher
         description: "True if the player is a pitcher"
-        tests:
+        data_tests:
           - accepted_values:
               arguments:
                 values: [true, false]
@@ -232,7 +233,7 @@ models:
     columns:
       - name: player_id
         description: "Unique identifier for each player"
-        tests:
+        data_tests:
           - not_null
           - relationships:
               arguments:
@@ -248,7 +249,7 @@ models:
           type: time
       - name: year
         description: "Season year (integer)"
-        tests:
+        data_tests:
           - not_null
       - name: full_name
         description: "Player's full name"
@@ -310,7 +311,6 @@ models:
           type: primary
           expr: "player_id || '_' || year::varchar"
     metrics:
-      # Batting metrics
       - name: total_home_runs
         type: simple
         label: "Home Runs"
@@ -352,7 +352,6 @@ models:
         description: "Average batting average across player-seasons"
         agg: average
         expr: season_batting_average
-      # Pitching metrics
       - name: total_wins
         type: simple
         label: "Wins"
@@ -394,14 +393,12 @@ models:
         description: "Average earned run average (lower is better)"
         agg: average
         expr: season_era
-      # Same-model ratio metric
       - name: win_loss_ratio
         type: ratio
         label: "Win/Loss Ratio"
         description: "Ratio of pitcher wins to losses — above 1.0 is a winning record"
         numerator: total_wins
         denominator: total_losses
-      # Cumulative metric
       - name: cumulative_home_runs
         type: cumulative
         label: "Cumulative Home Runs"
@@ -421,7 +418,7 @@ models:
     columns:
       - name: player_id
         description: "Unique identifier for each player"
-        tests:
+        data_tests:
           - not_null
           - relationships:
               arguments:
@@ -429,11 +426,11 @@ models:
                 field: player_id
       - name: year
         description: "Year of the analysis"
-        tests:
+        data_tests:
           - not_null
       - name: salary
         description: "Player's salary in dollars"
-        tests:
+        data_tests:
           - not_null
       - name: total_pitchers
         description: "Total number of pitchers in the year"
