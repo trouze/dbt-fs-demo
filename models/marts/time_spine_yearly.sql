@@ -4,10 +4,10 @@
     )
 }}
 
-with years as (
+with days as (
     {{
         dbt.date_spine(
-            'year',
+            'day',
             "to_date('01/01/2000','mm/dd/yyyy')",
             "to_date('01/01/2030','mm/dd/yyyy')"
         )
@@ -15,10 +15,10 @@ with years as (
 ),
 
 final as (
-    select cast(date_year as date) as date_year
-    from years
+    select cast(date_day as date) as date_day
+    from days
 )
 
 select * from final
-where date_year >= date_trunc('year', dateadd(year, -10, current_timestamp()))
-  and date_year < date_trunc('year', dateadd(year, 1, current_timestamp()))
+where date_day >= dateadd(year, -10, current_date())
+  and date_day < dateadd(year, 1, current_date())
