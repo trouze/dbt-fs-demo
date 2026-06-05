@@ -107,6 +107,10 @@ models:
       group: mart
       access: public
     description: "Fact table containing player salary information by season"
+    data_tests:
+      - elementary.volume_anomalies:
+          config:
+            severity: warn
     semantic_model:
       enabled: true
     agg_time_dimension: season_date
@@ -141,6 +145,12 @@ models:
         description: "Player's salary in millions of dollars"
         data_tests:
           - not_null
+          - elementary.column_anomalies:
+              arguments:
+                column_anomalies:
+                  - average
+              config:
+                severity: warn
       - name: team_name
         description: "Team name for this contract year"
         dimension:
