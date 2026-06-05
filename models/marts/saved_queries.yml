@@ -95,7 +95,7 @@ saved_queries:
         - salary_per_home_run
       group_by:
         - Dimension('player__full_name')
-        - TimeDimension('player_season__season_date', 'year')
+        - TimeDimension('metric_time', 'year')
     exports:
       - name: home_run_leaders_by_season
         config:
@@ -119,7 +119,7 @@ saved_queries:
         - salary_per_win
       group_by:
         - Dimension('player__full_name')
-        - TimeDimension('player_season__season_date', 'year')
+        - TimeDimension('metric_time', 'year')
     exports:
       - name: pitcher_cost_efficiency
         config:
