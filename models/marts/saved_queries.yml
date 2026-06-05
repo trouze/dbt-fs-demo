@@ -125,3 +125,31 @@ saved_queries:
         config:
           export_as: table
           schema: mart
+
+  # -----------------------------------------------------------------------
+  # Data quality anomalies by owner
+  # "Which teams need to review anomalies, and where did they happen?"
+  # -----------------------------------------------------------------------
+  - name: data_quality_anomalies_by_owner
+    label: "Data Quality Anomalies by Owner"
+    description: >
+      Distinct Elementary anomaly alerts by owner, severity, status, monitored
+      relation, and detection date. Designed as the default governed query
+      pattern for dashboard and Cortex anomaly triage.
+    query_params:
+      metrics:
+        - anomaly_count
+        - affected_relation_count
+        - affected_column_count
+      group_by:
+        - Dimension('data_quality_anomaly_owner__owner_name')
+        - Dimension('data_quality_anomaly_owner__severity')
+        - Dimension('data_quality_anomaly_owner__status')
+        - Dimension('data_quality_anomaly_owner__monitored_relation')
+        - Dimension('data_quality_anomaly_owner__monitored_column')
+        - TimeDimension('data_quality_anomaly_owner__detected_at', 'day')
+    exports:
+      - name: data_quality_anomalies_by_owner
+        config:
+          export_as: table
+          schema: mart
