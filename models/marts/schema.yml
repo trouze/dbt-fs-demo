@@ -99,7 +99,7 @@ models:
   # -----------------------------------------------------------------------
   # fct_player_salaries
   # Grain: one row per player per season.
-  # Primary entity: player_salary (derived from player_id + year).
+  # Primary entity: player_salary — player_salary_id column (player_id + year).
   # Foreign entity: player — joins to dim_roster for biographical dimensions.
   # -----------------------------------------------------------------------
   - name: fct_player_salaries
@@ -120,6 +120,14 @@ models:
       enabled: true
     agg_time_dimension: season_date
     columns:
+      - name: player_salary_id
+        description: "Unique identifier for a player-season salary record (player_id + year)"
+        data_tests:
+          - unique
+          - not_null
+        entity:
+          type: primary
+          name: player_salary
       - name: player_id
         description: "Unique identifier for each player"
         data_tests:
@@ -182,11 +190,6 @@ models:
                 values: [true, false]
         dimension:
           type: categorical
-    derived_semantics:
-      entities:
-        - name: player_salary
-          type: primary
-          expr: "player_id || '_' || year::varchar"
     metrics:
       - name: total_salary
         type: simple
@@ -236,7 +239,7 @@ models:
   # -----------------------------------------------------------------------
   # player_performance_analysis
   # Grain: one row per player per season.
-  # Primary entity: player_season (derived from player_id + year).
+  # Primary entity: player_season — player_season_id column (player_id + year).
   # Foreign entity: player — joins to dim_roster for biographical dimensions.
   # -----------------------------------------------------------------------
   - name: player_performance_analysis
@@ -248,6 +251,14 @@ models:
       enabled: true
     agg_time_dimension: season_date
     columns:
+      - name: player_season_id
+        description: "Unique identifier for a player-season record (player_id + year)"
+        data_tests:
+          - unique
+          - not_null
+        entity:
+          type: primary
+          name: player_season
       - name: player_id
         description: "Unique identifier for each player"
         data_tests:
@@ -322,11 +333,6 @@ models:
         description: "Salary cost per home run for batters"
       - name: cost_per_win
         description: "Salary cost per win for pitchers"
-    derived_semantics:
-      entities:
-        - name: player_season
-          type: primary
-          expr: "player_id || '_' || year::varchar"
     metrics:
       - name: total_home_runs
         type: simple
