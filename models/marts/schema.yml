@@ -228,7 +228,7 @@ models:
         label: "# Contracts"
         description: "Number of player-season salary records"
         agg: count
-        expr: 1
+        expr: player_salary_id
         fill_nulls_with: 0
       - name: cumulative_salary
         type: cumulative
@@ -427,6 +427,24 @@ models:
         label: "Cumulative Home Runs"
         description: "Running total of home runs from start of data"
         input_metric: total_home_runs
+      - name: salary_per_home_run
+        type: simple
+        label: "Salary per HR"
+        description: "Average salary cost per home run — uses pre-computed cost_per_home_run column (avoids cross-table join)"
+        agg: average
+        expr: cost_per_home_run
+      - name: salary_per_win
+        type: simple
+        label: "Salary per Win"
+        description: "Average salary cost per pitcher win — uses pre-computed cost_per_win column (avoids cross-table join)"
+        agg: average
+        expr: cost_per_win
+      - name: salary_per_hit
+        type: simple
+        label: "Salary per Hit"
+        description: "Average salary cost per hit — uses pre-computed cost_per_hit column (avoids cross-table join)"
+        agg: average
+        expr: cost_per_hit
 
   # -----------------------------------------------------------------------
   # pitcher_salary_analysis
@@ -557,7 +575,7 @@ models:
         label: "Anomaly Owner Assignments"
         description: "Count of anomaly-owner assignments"
         agg: count
-        expr: 1
+        expr: alert_owner_id
         fill_nulls_with: 0
       - name: affected_relation_count
         type: simple
