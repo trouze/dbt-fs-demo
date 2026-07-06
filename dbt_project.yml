@@ -41,9 +41,6 @@ models:
       +schema: mart
       +materialized: table
 
-  elementary:
-    +schema: elementary
-
 seeds:
   dbt_dugout:
     +enabled: false

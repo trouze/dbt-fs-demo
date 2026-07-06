@@ -109,13 +109,6 @@ models:
       meta:
         owner: "analytics-engineering"
     description: "Fact table containing player salary information by season"
-    data_tests:
-      - elementary.volume_anomalies:
-          arguments:
-            min_training_set_size: 3
-            anomaly_sensitivity: 0.5
-          config:
-            severity: warn
     semantic_model:
       enabled: true
     agg_time_dimension: season_date
@@ -158,14 +151,6 @@ models:
         description: "Player's salary in millions of dollars"
         data_tests:
           - not_null
-          - elementary.column_anomalies:
-              arguments:
-                column_anomalies:
-                  - average
-                min_training_set_size: 3
-                anomaly_sensitivity: 0.5
-              config:
-                severity: warn
       - name: team_name
         description: "Team name for this contract year"
         dimension:
@@ -477,120 +462,6 @@ models:
         description: "Total number of pitchers in the year"
       - name: team_avg_salary_millions
         description: "Average salary in millions for pitchers in the year"
-
-  # -----------------------------------------------------------------------
-  # fct_data_quality_anomalies
-  # One row per Elementary anomaly alert per owner.
-  # Primary entity: data_quality_anomaly_owner (alert_id + owner_name).
-  # Count metrics use distinct alert_id to avoid double-counting shared alerts.
-  # -----------------------------------------------------------------------
-  - name: fct_data_quality_anomalies
-    config:
-      group: mart
-      access: public
-    description: "Owner-aware mart of Elementary anomaly alerts for dashboard and Cortex experiences"
-    semantic_model:
-      enabled: true
-    agg_time_dimension: detected_at
-    columns:
-      - name: alert_owner_id
-        description: "Unique identifier for an anomaly alert-owner assignment"
-        data_tests:
-          - unique
-          - not_null
-        entity:
-          type: primary
-          name: data_quality_anomaly_owner
-      - name: alert_id
-        description: "Elementary alert identifier"
-        data_tests:
-          - not_null
-      - name: detected_at
-        description: "Timestamp when Elementary detected the anomaly"
-        granularity: day
-        dimension:
-          type: time
-      - name: detected_date
-        description: "Date when Elementary detected the anomaly"
-      - name: database_name
-        description: "Database containing the monitored relation"
-        dimension:
-          type: categorical
-      - name: schema_name
-        description: "Schema containing the monitored relation"
-        dimension:
-          type: categorical
-      - name: table_name
-        description: "Table or model where the anomaly was detected"
-        dimension:
-          type: categorical
-      - name: column_name
-        description: "Column where the anomaly was detected, when applicable"
-        dimension:
-          type: categorical
-      - name: monitored_relation
-        description: "Fully qualified relation where the anomaly was detected"
-        dimension:
-          type: categorical
-      - name: monitored_column
-        description: "Monitored column, or __table__ for table-level anomalies"
-        dimension:
-          type: categorical
-      - name: owner_name
-        description: "Owner assigned to the monitored dbt model, or unassigned"
-        data_tests:
-          - not_null
-        dimension:
-          type: categorical
-      - name: alert_type
-        description: "Elementary alert type"
-        dimension:
-          type: categorical
-      - name: sub_type
-        description: "Elementary anomaly subtype or monitored metric name"
-        dimension:
-          type: categorical
-      - name: severity
-        description: "dbt test severity configured for the anomaly check"
-        dimension:
-          type: categorical
-      - name: status
-        description: "dbt test result status for the anomaly check"
-        dimension:
-          type: categorical
-      - name: alert_description
-        description: "Human-readable anomaly description from Elementary"
-      - name: result_rows
-        description: "Serialized Elementary result rows for the detected anomaly"
-    metrics:
-      - name: anomaly_count
-        type: simple
-        label: "Anomaly Count"
-        description: "Distinct Elementary anomaly alerts"
-        agg: count_distinct
-        expr: alert_id
-        fill_nulls_with: 0
-      - name: anomaly_owner_assignment_count
-        type: simple
-        label: "Anomaly Owner Assignments"
-        description: "Count of anomaly-owner assignments"
-        agg: count
-        expr: alert_owner_id
-        fill_nulls_with: 0
-      - name: affected_relation_count
-        type: simple
-        label: "Affected Relations"
-        description: "Distinct monitored relations with anomaly alerts"
-        agg: count_distinct
-        expr: monitored_relation
-        fill_nulls_with: 0
-      - name: affected_column_count
-        type: simple
-        label: "Affected Columns"
-        description: "Distinct monitored columns with anomaly alerts"
-        agg: count_distinct
-        expr: monitored_column
-        fill_nulls_with: 0
 
 groups:
   - name: mart
