@@ -5,6 +5,7 @@ config-version: 2
 profile: 'sa_snowflake'
 dbt-cloud:
   defer-env-id: 400397
+  project-id: 465676
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -39,6 +40,9 @@ models:
         +access: public
       +schema: mart
       +materialized: table
+
+  elementary:
+    +schema: elementary
 
 seeds:
   dbt_dugout:

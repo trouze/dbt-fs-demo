@@ -12,6 +12,7 @@ teams as (
 
 final as (
     select
+        s.player_id || '_' || s.year::varchar as player_salary_id,
         s.player_id,
         p.full_name,
         p.position,

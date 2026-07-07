@@ -48,6 +48,7 @@ player_season_stats as (
 
 final as (
     select
+        pss.player_id || '_' || pss.year::varchar as player_season_id,
         pss.player_id,
         p.full_name,
         p.position,
