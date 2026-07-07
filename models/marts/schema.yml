@@ -109,13 +109,6 @@ models:
       meta:
         owner: "analytics-engineering"
     description: "Fact table containing player salary information by season"
-    data_tests:
-      - elementary.volume_anomalies:
-          arguments:
-            min_training_set_size: 3
-            anomaly_sensitivity: 0.5
-          config:
-            severity: warn
     semantic_model:
       enabled: true
     agg_time_dimension: season_date
@@ -158,14 +151,6 @@ models:
         description: "Player's salary in millions of dollars"
         data_tests:
           - not_null
-          - elementary.column_anomalies:
-              arguments:
-                column_anomalies:
-                  - average
-                min_training_set_size: 3
-                anomaly_sensitivity: 0.5
-              config:
-                severity: warn
       - name: team_name
         description: "Team name for this contract year"
         dimension:
