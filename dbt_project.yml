@@ -1,4 +1,4 @@
-name: dbt_dugout{{ var('project_suffix') }}
+name: dna_marketing{{ var('project_suffix') }}
 version: "1.0.0"
 config-version: 2
 
