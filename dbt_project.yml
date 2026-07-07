@@ -1,10 +1,11 @@
-name: 'dbt_dugout_downstream'
-version: '1.0.0'
+name: dbt_dugout{{ var('project_suffix') }}
+version: "1.0.0"
 config-version: 2
 
-profile: 'sa_snowflake'
+profile: "sa_snowflake"
 dbt-cloud:
   defer-env-id: 400397
+  project-id: 465676
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -17,22 +18,12 @@ clean-targets:
   - "dbt_packages"
 
 models:
-  +freshness:
-    build_after:
-      count: 4
-      period: hour
-      updates_on: all
   dbt_dugout:
     +schema: downstream
 
 seeds:
   dbt_dugout:
     +enabled: false
-
-vars:
-  # Add any project variables here
-  start_date: '2019-01-01'
-  end_date: '2023-12-31'
 
 tests:
   +severity: warn
