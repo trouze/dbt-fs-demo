@@ -1,0 +1,5 @@
+vars:
+  # Add any project variables here
+  start_date: "2019-01-01"
+  end_date: "2023-12-31"
+  project_suffix: "{{ env_var('DBT_SUFFIX', '') }}"
