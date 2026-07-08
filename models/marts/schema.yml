@@ -7,7 +7,7 @@ models:
   # -----------------------------------------------------------------------
   - name: time_spine_yearly
     config:
-      freshness: null
+      freshness:
       alias: time_spine_daily
     description: "Time spine with one row per day, used by MetricFlow for time-based aggregations."
     time_spine:
@@ -60,7 +60,7 @@ models:
         dimension:
           type: categorical
       - name: team_name
-        description: "Team the player belongs to"
+        description: "Team the player belongs to!"
         dimension:
           type: categorical
       - name: league
